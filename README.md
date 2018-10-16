@@ -4,8 +4,11 @@ A force-directed layout algorithm to more easily and intuitively see complex nod
 ## Background
 Graphs are defined as having nodes (or vertices) and edges that connect them. They can be used to show simple and complex relationships between objects. For example, Facebook uses graphs to represent people and their innterrelationships as a graph and the Google search engine is powered by the PageRank algorithm, which treats webpages as nodes and their links to each other as edges. These relationships can be incredibly sophisticated and hard to visualize. Thus we seek a way to intuitively visualize these graphs so that we can make more informed decisions in industry.
 
-![Bad Graph](graph-visualization/images/bad-file.png)
-![Good Graph](graph-visualization/images/good-file.png)
+<img src="/images/bad-file.png" alt="Bad Graph" width="350" height="200">
+Figure 1: An example of a graph that is not easily read and understood.
+
+<img src="/images/good-file.png" alt="Good Graph" width="300" height="200">
+Figure 2: A much better visual representation of the same graph that is much more easily deciphered. This is the object of the graph visualization program.
 
 ## Implementation
 Though there are many ways of approaching this problem, there are two ad hoc rules that work reasonably well:
