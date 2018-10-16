@@ -23,7 +23,7 @@ Upon calculating the magnitude of the force between two nodes, it's necessary to
 3. Penalize crossing edges because these make the graph relationships hard to decipher.
 
 ## Comments
-This project was extremely insightful for me because I got to work with some graphics visualization for the first time and to think about what goes behind these sorts of programs. It was also vaguely reminiscent of some machine learning gradient descent techniques where we were trying to optimize some sort of relationships and prevent getting stuck at local optima. Definitely looking forward to learning more about momentum gradient descent in future classes!
+This project was extremely insightful for me because I got to work with some graphics visualization for the first time and to think about what goes behind the scenes in these sorts of programs. It was also vaguely reminiscent of some machine learning gradient descent techniques where we were trying to optimize some sort of relationships and prevent getting stuck at local optima. Definitely looking forward to learning more about momentum gradient descent in future classes!
 
 ## Credits
 This project was part of CS 106L (Standard C++ Programming) taught by Ali Malik in 2018 at Stanford University.
