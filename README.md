@@ -4,6 +4,9 @@ A force-directed layout algorithm to more easily and intuitively see complex nod
 ## Background
 Graphs are defined as having nodes (or vertices) and edges that connect them. They can be used to show simple and complex relationships between objects. For example, Facebook uses graphs to represent people and their innterrelationships as a graph and the Google search engine is powered by the PageRank algorithm, which treats webpages as nodes and their links to each other as edges. These relationships can be incredibly sophisticated and hard to visualize. Thus we seek a way to intuitively visualize these graphs so that we can make more informed decisions in industry.
 
+![Bad Graph](/images/logo.png)
+![Good Graph](/images/logo.png)
+
 ## Implementation
 Though there are many ways of approaching this problem, there are two ad hoc rules that work reasonably well:
 1. Place connected nodes near one another.
