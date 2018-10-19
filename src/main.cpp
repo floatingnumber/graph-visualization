@@ -13,7 +13,7 @@ using std::ifstream;
 using std::cos;     using std::sin;
 using std::vector;  using std::sqrt;
 using std::pow;     using std::atan;
-using std::atan2;
+using std::atan2;   using std::cerr;
 
 // Function and Struct Prototypes
 struct force;
@@ -26,6 +26,7 @@ void calculateRepulsion(vector<force>& net_forces, SimpleGraph& graph);
 void calculateAttraction(vector<force>& net_forces, SimpleGraph& graph);
 vector<force> initializeForceVector(SimpleGraph graph);
 void moveNodes(vector<force>& net_forces, SimpleGraph& graph);
+void repeat(bool& response);
 
 // Global Constants
 const double PI = 3.14159265358979323;
@@ -33,30 +34,32 @@ const double PI = 3.14159265358979323;
 // Main method
 int main() {
     welcome();
-    string file_name = getFileName();
-    double duration = getRunDuration();
-    SimpleGraph graph = readGraphFile(file_name);
 
-    InitGraphVisualizer(graph);
-    DrawGraph(graph);
+    while (true) {
+        string file_name = getFileName();
+        double duration = getRunDuration();
+        SimpleGraph graph = readGraphFile(file_name);
 
-    // iterate until user-defined time is reached
-    time_t start_time = time(nullptr);
-    while (difftime(time(nullptr), start_time) < duration) {
-
-        vector<force> net_forces = initializeForceVector(graph);
-
-        // compute net forces on each node
-        calculateRepulsion(net_forces, graph);
-        calculateAttraction(net_forces, graph);
-
-        // move each node specified amount (net force)
-        moveNodes(net_forces, graph);
-
-        // display current state of graph
+        InitGraphVisualizer(graph);
         DrawGraph(graph);
-    }
 
+        // iterate until user-defined time is reached
+        time_t start_time = time(nullptr);
+        while (difftime(time(nullptr), start_time) < duration) {
+            vector<force> net_forces = initializeForceVector(graph);
+            calculateRepulsion(net_forces, graph);
+            calculateAttraction(net_forces, graph);
+            moveNodes(net_forces, graph);
+            DrawGraph(graph);
+        }
+
+        bool userInput;
+        repeat(userInput);
+        if (!userInput) {
+            cout << "Thank you! Have a nice day!" << endl;
+            break;
+        }
+    }
     return 0;
 }
 
@@ -71,12 +74,19 @@ void welcome() {
 
 /* Prompts user for a graph filename and reads it as a string.
  * Possible addition: data validation to make sure file name
- * exists in project directory. */
+ * exists in project directory. Reprompts of file doesn't exist. */
 string getFileName() {
-    cout << "Please enter the graph file name you'd like to visualize." << endl; // addition: file validation
-    string file_name;
-    getline(cin, file_name);
-    return file_name;
+    while (true) {
+        cout << "Please enter the graph file name you'd like to visualize." << endl;
+        string file_name;
+        getline(cin, file_name);
+        ifstream input;
+        input.open(file_name);
+        if (input.is_open()) {
+            return file_name;
+        }
+        cerr << "The file name does not exist. Please try again.\n" << endl;
+    }
 }
 
 /* Prompts user for a runtime duration in seconds. */
@@ -187,5 +197,24 @@ void moveNodes(vector<force>& net_forces, SimpleGraph& graph) {
     for (size_t i = 0; i < graph.nodes.size(); i++) {
         graph.nodes[i].x += net_forces[i].x;
         graph.nodes[i].y += net_forces[i].y;
+    }
+}
+
+/* Prompts user to see if (s)he wants to visualize another graph.
+ * Reprompts if the user enters an illegal response. */
+void repeat(bool& response) {
+    string userInput;
+    while(true) {
+        cout << "Would you like to visualize another graph? (Y/N)" << endl;
+        getline(cin, userInput);
+        if(userInput.compare("Y") == 0 || userInput.compare("y") == 0) {
+            response = true;
+            break;
+        } else if(userInput.compare("N") == 0 || userInput.compare("n") == 0) {
+            response = false;
+            break;
+        } else {
+            cerr << "Please type a valid response." << endl;
+        }
     }
 }
