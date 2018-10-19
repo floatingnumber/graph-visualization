@@ -153,10 +153,10 @@ void calculateRepulsion(vector<force>& net_forces, SimpleGraph& graph) {
     vector<Node> nodes = graph.nodes;
     for (size_t i = 0; i <= nodes.size() - 2; i++) {
         for (size_t j = i + 1; j <= nodes.size() - 1; j++) {
-            double force = k / sqrt(pow(double(nodes.at(i).x) - double(nodes.at(j).x), 2) +
-                                    pow(double(nodes.at(i).y) - double(nodes.at(j).y), 2));
-            double theta = atan2((double(nodes.at(j).y) - double(nodes.at(i).y)),
-                                (double(nodes.at(j).x) - double(nodes.at(i).x)));
+            double force = k / sqrt(pow(nodes[i].x - nodes[j].x, 2) +
+                                    pow(nodes[i].y - nodes[j].y, 2));
+            double theta = atan2((nodes[j].y - nodes[i].y),
+                                (nodes[j].x - nodes[i].x));
             net_forces[i].x -= force * cos(theta);
             net_forces[i].y -= force * sin(theta);
             net_forces[j].x += force * cos(theta);
@@ -178,10 +178,10 @@ void calculateAttraction(vector<force>& net_forces, SimpleGraph& graph) {
         size_t node2 = edges[i].end;
 
         // calculate force and angle between nodes
-        double force = k * (pow(double(nodes.at(node1).x) - double(nodes.at(node2).x), 2)
-                            + pow(double(nodes.at(node1).y) - double(nodes.at(node2).y), 2));
-        double theta = atan2((nodes.at(node2).y - nodes.at(node1).y),
-                            (nodes.at(node2).x - nodes.at(node1).x));
+        double force = k * (pow(nodes[node1].x - nodes[node2].x, 2)
+                            + pow(nodes[node1].y - nodes[node2].y, 2));
+        double theta = atan2((nodes[node2].y - nodes[node1].y),
+                            (nodes[node2].x - nodes[node1].x));
 
         // update net forces on nodes
         net_forces[node1].x += force * cos(theta);
